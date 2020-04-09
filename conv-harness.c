@@ -425,15 +425,6 @@ void team_conv_sparse(float *** image, struct sparse_matrix *** kernels,
 	int h, w, x, y, c, m, index;
   float value;
 
-  // initialize the output matrix to zero
-  for ( m = 0; m < nkernels; m++ ) {
-    for ( h = 0; h < height; h++ ) {
-      for ( w = 0; w < width; w++ ) {
-	output[m][h][w] = 0.0;
-      }
-    }
-  }
-
   DEBUGGING(fprintf(stderr, "w=%d, h=%d, c=%d\n", w, h, c));
 
   // now compute multichannel, multikernel convolution
@@ -515,7 +506,7 @@ int main(int argc, char ** argv) {
   }
 
   output = new_empty_3d_matrix(nkernels, width, height);
-
+  print
   control_output = new_empty_3d_matrix(nkernels, width, height);
 
   /* use a simple multichannel convolution routine to produce control result */
