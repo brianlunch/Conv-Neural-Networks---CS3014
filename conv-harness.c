@@ -430,9 +430,7 @@ void team_conv_sparse(float ** * image, struct sparse_matrix ** * kernels,
    // now compute multichannel, multikernel convolution
    int imgSize = height * width;
    int kernelSize = kernel_order * kernel_order;
-
-   
-  #pragma omp parallel for if (nkernels > 63) private(w, h, kernel_order, nkernels, end, channel, value, outputSaver) shared(image, kernels, output) collapse(3)
+  
    for (int wh = 0; wh < imgSize; ++wh) {
       w = wh / width;
       h = wh % width;
