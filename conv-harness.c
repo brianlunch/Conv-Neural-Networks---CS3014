@@ -42,7 +42,7 @@
 /* the following two definitions of DEBUGGING control whether or not
    debugging information is written out. To put the program into
    debugging mode, uncomment the following line: */
-//#define DEBUGGING(_x) _x 
+#define DEBUGGING(_x) _x 
 /* to stop the printing of debugging information, use the following line: */
 #define DEBUGGING(_x)
 
@@ -430,23 +430,25 @@ void team_conv_sparse(float ** * image, struct sparse_matrix ** * kernels,
    // now compute multichannel, multikernel convolution
    int imgSize = height * width;
    int kernelSize = kernel_order * kernel_order;
+   
+   
+   
 
    for (int wh = 0; wh < imgSize; ++wh) {
       w = wh / width;
       h = wh % width;
       for (int xy = 0; xy < kernelSize; xy++) {
+		  
          x = xy / kernel_order;
          y = xy % kernel_order;
 
-         float * imageRef = image[w + x][h + y];
+         float *imageRef = image[w + x][h + y];
          struct sparse_matrix * kernel = kernels[x][y];
 
          for (m = 0; m < nkernels; m++) {
 
             //instead of constantly accessing output [m][h][w] save it to a variable and add at the end 
             register float outputSaver = 0.0;
-			
-			
 			end = kernel -> kernel_starts[m + 1]; 
 			
             for (index = kernel -> kernel_starts[m]; index < end; index++) {
