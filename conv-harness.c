@@ -1,33 +1,24 @@
 /* Test and timing harness program for developing a multichannel
    multikernel convolution (as used in deep learning networks)
-
    Note there are some simplifications around this implementation,
    in particular with respect to computing the convolution at edge
    pixels of the image.
-
    Author: David Gregg
    Date:   March 2019
-
    Version 1.7 : Modified the code so that the kernel is sparse
-
    Version 1.6 : Modified the code so that the input tensor is float
-
    Version 1.5 : Modified the code so that the input and kernel
                  are tensors of 16-bit integer values
-
    Version 1.4 : Modified the random generator to reduce the range
                  of generated values;
-
    Version 1.3 : Fixed which loop variables were being incremented
                  in write_out();
                  Fixed dimensions of output and control_output
                  matrices in main function
-
    Version 1.2 : Changed distribution of test data to (hopefully)
                  eliminate random walk of floating point error;
                  Also introduced checks to restrict kernel-order to
                  a small set of values
-
    Version 1.1 : Fixed bug in code to create 4d matrix
 */
 
@@ -42,8 +33,7 @@
 /* the following two definitions of DEBUGGING control whether or not
    debugging information is written out. To put the program into
    debugging mode, uncomment the following line: */
-
-//#define DEBUGGING(_x) _x 
+//#define DEBUGGING(_x) _x
 /* to stop the printing of debugging information, use the following line: */
 #define DEBUGGING(_x)
 
@@ -334,7 +324,8 @@ void check_result(float *** result, float *** control,
   }
 
   if ( sum_abs_diff > EPSILON ) {
-    fprintf(stderr, "WARNING: sum of absolute differences (%f) > EPSILON (%f)\n",sum_abs_diff, EPSILON);
+    fprintf(stderr, "WARNING: sum of absolute differences (%f) > EPSILON (%f)\n",
+            sum_abs_diff, EPSILON);
   }
   else {
     printf("COMMENT: sum of absolute differences (%f)  within acceptable range (%f)\n", sum_abs_diff, EPSILON);
@@ -423,43 +414,38 @@ void team_conv_sparse(float ** * image, struct sparse_matrix ** * kernels,
    int nchannels, int nkernels, int kernel_order) {
 
    int h, w, x, y, c, m, index,start,end;
-   float value;
+   float value,outputSaver;
 
    DEBUGGING(fprintf(stderr, "w=%d, h=%d, c=%d\n", w, h, c));
 
    // now compute multichannel, multikernel convolution
    int imgSize = height * width;
    int kernelSize = kernel_order * kernel_order;
-   
-   float *imageRef = malloc(sizeof(int)*kernel_order * width*kernel_order * width);
-   
-   
-  #nels, end, channel, value, outputSaver) shared(image, kernels, output) collapse(3)
+  
    for (int wh = 0; wh < imgSize; ++wh) {
       w = wh / width;
       h = wh % width;
-	  
       for (int xy = 0; xy < kernelSize; xy++) {
 
          x = xy / kernel_order;
          y = xy % kernel_order;
 
-         imageRef = image[w + x][h + y];
+         float *imageRef = image[w + x][h + y];
          struct sparse_matrix * kernel = kernels[x][y];
-		 
+
          for (m = 0; m < nkernels; m++) {
 
             //instead of constantly accessing output [m][h][w] save it to a variable and add at the end
-            register float outputSaver = 0.0;
+            outputSaver = 0.0;
 			      end = kernel -> kernel_starts[m + 1]; 
 			
             for (index = kernel -> kernel_starts[m]; index < end; index++) {
 
-               outputSaver += imageRef[kernel -> channel_numbers[index]] * (kernel -> values[index]);
+               output[m][h][w] += imageRef[kernel -> channel_numbers[index]] * (kernel -> values[index]);
 
             }
 
-            output[m][h][w] += outputSaver;
+            //output[m][h][w] += outputSaver;
 
          } //
       } //
