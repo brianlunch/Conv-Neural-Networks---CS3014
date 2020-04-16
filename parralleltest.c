@@ -412,7 +412,7 @@ void multichannel_conv_sparse(float *** image, struct sparse_matrix *** kernels,
 void team_conv_sparse(float ** * image, struct sparse_matrix ** * kernels,
    float ** * output, int width, int height,
    int nchannels, int nkernels, int kernel_order) {
-
+   printf("yert");
   
    int h, w, x, y, c, m, index,start,end;
    float value,outputSaver;
@@ -426,7 +426,7 @@ void team_conv_sparse(float ** * image, struct sparse_matrix ** * kernels,
    #pragma omp parallel for if (nkernels > 63) private(w, h, m, x, y, kernelSize, imgSize, kernel_order, nkernels, end, value, outputSaver, imageRef, kernel) shared(image, kernels, output) collapse(2)
    for (int wh = 0; wh < imgSize; ++wh) {      
       for (int xy = 0; xy < kernelSize; xy++) {
-         printf("yert");
+         
          w = wh / width;
          h = wh % width;
          x = xy / kernel_order;
