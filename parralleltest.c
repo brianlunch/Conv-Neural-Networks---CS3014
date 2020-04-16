@@ -422,16 +422,16 @@ void team_conv_sparse(float ** * image, struct sparse_matrix ** * kernels,
    int kernelSize = kernel_order * kernel_order;
    #pragma omp parallel for if (nkernels > 63) private(w, h, m, kernel_order, nkernels, end, value, outputSaver, imageRef, kernel) shared(image, kernels, output) collapse(2) 
    for (int wh = 0; wh < imgSize; ++wh) {
-      
+      printf("floating is here");
       for (int xy = 0; xy < kernelSize; xy++) {
          w = wh / width;
          h = wh % width;
          x = xy / kernel_order;
          y = xy % kernel_order;
-         printf("floating is here");
+        
          imageRef = image[w + x][h + y];
          kernel = kernels[x][y];
-         printf("wait no");
+         
          for (m = 0; m < nkernels; m++) {
             
             //instead of constantly accessing output [m][h][w] save it to a variable and add at the end
