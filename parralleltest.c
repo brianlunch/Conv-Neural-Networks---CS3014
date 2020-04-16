@@ -412,7 +412,7 @@ void multichannel_conv_sparse(float *** image, struct sparse_matrix *** kernels,
 void team_conv_sparse(float ** * image, struct sparse_matrix ** * kernels,
    float ** * output, int width, int height,
    int nchannels, int nkernels, int kernel_order) {
-   printf("floating is here");
+   printf("floating is here\n");
   
    int h, w, x, y, c, m, index,start,end;
    float value,outputSaver;
