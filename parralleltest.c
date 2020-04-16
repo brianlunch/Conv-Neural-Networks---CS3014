@@ -412,7 +412,7 @@ void multichannel_conv_sparse(float *** image, struct sparse_matrix *** kernels,
 void team_conv_sparse(float ** * image, struct sparse_matrix ** * kernels,
    float ** * output, int width, int height,
    int nchannels, int nkernels, int kernel_order) {
-   printf("floating is here\n");
+
   
    int h, w, x, y, c, m, index,start,end;
    float value,outputSaver;
@@ -438,18 +438,18 @@ void team_conv_sparse(float ** * image, struct sparse_matrix ** * kernels,
          for (m = 0; m < nkernels; m++) {
             
             //instead of constantly accessing output [m][h][w] save it to a variable and add at the end
-            //outputSaver = output[m][h][w];
+            outputSaver = output[m][h][w];
 			      end = kernel -> kernel_starts[m + 1]; 
 			
             for (index = kernel -> kernel_starts[m]; index < end; index++) {
               
-               //outputSaver += (imageRef[kernel -> channel_numbers[index]]) * (kernel -> values[index]);
-               output[m][h][w] += (imageRef[kernel -> channel_numbers[index]]) * (kernel -> values[index]);
+               outputSaver += (imageRef[kernel -> channel_numbers[index]]) * (kernel -> values[index]);
+
 
 
             }
             
-            //output[m][h][w] =outputSaver;
+            output[m][h][w] =outputSaver;
             //output[m][h][w] += outputSaver;
 
          } //
