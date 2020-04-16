@@ -445,8 +445,6 @@ void team_conv_sparse(float ** * image, struct sparse_matrix ** * kernels,
               
                outputSaver += (imageRef[kernel -> channel_numbers[index]]) * (kernel -> values[index]);
 
-
-
             }
             
             output[m][h][w] =outputSaver;
