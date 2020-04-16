@@ -417,7 +417,6 @@ void team_conv_sparse(float ** * image, struct sparse_matrix ** * kernels,
    float value,outputSaver;
    float *imageRef; struct sparse_matrix * kernel;
    DEBUGGING(fprintf(stderr, "w=%d, h=%d, c=%d\n", w, h, c));
-   printf("Integer value is %d\n" , width);
    // now compute multichannel, multikernel convolution
    int imgSize = height * width;
    int kernelSize = kernel_order * kernel_order;
@@ -443,10 +442,12 @@ void team_conv_sparse(float ** * image, struct sparse_matrix ** * kernels,
                outputSaver += imageRef[kernel -> channel_numbers[index]] * (kernel -> values[index]);
 
             }
-		        	output[m][h][w] =outputSaver;
+            printf("error is here 1")
+            output[m][h][w] =outputSaver;
             //output[m][h][w] += outputSaver;
 
          } //
+         printf("error is here 2")
       } //
    } //
 } //
