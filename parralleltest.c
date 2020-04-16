@@ -447,7 +447,7 @@ void team_conv_sparse(float ** * image, struct sparse_matrix ** * kernels,
             //output[m][h][w] += outputSaver;
 
          } //
-         printf("error is here 2")
+         printf("error is here 2");
       } //
    } //
 } //
