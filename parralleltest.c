@@ -442,7 +442,7 @@ void team_conv_sparse(float ** * image, struct sparse_matrix ** * kernels,
                outputSaver += imageRef[kernel -> channel_numbers[index]] * (kernel -> values[index]);
 
             }
-            printf("error is here 1")
+            printf("error is here 1");
             output[m][h][w] =outputSaver;
             //output[m][h][w] += outputSaver;
 
