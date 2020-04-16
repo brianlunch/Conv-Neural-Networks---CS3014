@@ -423,11 +423,12 @@ void team_conv_sparse(float ** * image, struct sparse_matrix ** * kernels,
    int imgSize = height * width;
    int kernelSize = kernel_order * kernel_order;
    printf("%d\n", nkernels);
-   for (int wh = 0; wh < imgSize; ++wh) {      
+   for (int wh = 0; wh < imgSize; ++wh) {    
+         w = wh / width;
+         h = wh % width;  
       for (int xy = 0; xy < kernelSize; xy++) {
          
-         w = wh / width;
-         h = wh % width;
+         
          x = xy / kernel_order;
          y = xy % kernel_order;
         
@@ -441,9 +442,9 @@ void team_conv_sparse(float ** * image, struct sparse_matrix ** * kernels,
 			      end = kernel -> kernel_starts[m + 1]; 
 			
             for (index = kernel -> kernel_starts[m]; index < end; index++) {
-              printf("yert1\n");
+            
                outputSaver += (imageRef[kernel -> channel_numbers[index]]) * (kernel -> values[index]);
-              printf("yert2\n");
+            
             }
             
             output[m][h][w] =outputSaver;
