@@ -438,7 +438,7 @@ void team_conv_sparse(float ** * image, struct sparse_matrix ** * kernels,
 			      end = kernel -> kernel_starts[m + 1]; 
 			
             for (index = kernel -> kernel_starts[m]; index < end; index++) {
-
+              printf("floating is here");
                outputSaver += (imageRef[kernel -> channel_numbers[index]]) * (kernel -> values[index]);
 
             }
