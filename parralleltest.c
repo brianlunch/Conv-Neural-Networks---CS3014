@@ -427,7 +427,8 @@ void team_conv_sparse(float ** * image, struct sparse_matrix ** * kernels,
    for (wh = 0; wh < imgSize; ++wh) {  
         w = wh / width;
         h = wh % width;
-           
+        int threadNum = omp_get_thread_num();
+        printf("%d\n", threadNum);   
       for (xy = 0; xy < kernelSize; xy++) {
          
          
