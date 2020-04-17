@@ -424,6 +424,7 @@ void team_conv_sparse(float ** * image, struct sparse_matrix ** * kernels,
    int kernelSize = kernel_order * kernel_order;
    printf("%d\n", nkernels);
    #pragma omp parallel for if(nkernels > 63) private(h, w, x, y, c, m, kernelSize, imgSize, kernel_order, nkernels, end, value, outputSaver, imageRef, kernel) shared(image, kernels, output) collapse(1)
+   {
    for (wh = 0; wh < imgSize; ++wh) {  
         w = wh / width;
         h = wh % width;    
@@ -453,6 +454,7 @@ void team_conv_sparse(float ** * image, struct sparse_matrix ** * kernels,
          
       } //
    } //
+   }
 } //
 
 
