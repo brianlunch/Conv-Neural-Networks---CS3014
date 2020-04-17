@@ -441,12 +441,13 @@ void team_conv_sparse(float ** * image, struct sparse_matrix ** * kernels,
          for (m = 0; m < nkernels; m++) {
             
             //instead of constantly accessing output [m][h][w] save it to a variable and add at the end
-            outputSaver = output[m][h][w];
+            outputSaver = 0;
 			      end = kernel -> kernel_starts[m + 1]; 
 			
             for (index = kernel -> kernel_starts[m]; index < end; index++) {
                outputSaver += (imageRef[kernel -> channel_numbers[index]]) * (kernel -> values[index]);
             }
+
             #pragma omp critical 
             output[m][h][w] =outputSaver;
             //output[m][h][w] += outputSaver;
