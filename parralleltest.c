@@ -445,8 +445,8 @@ void team_conv_sparse(float ** * image, struct sparse_matrix ** * kernels,
 			      end = kernel -> kernel_starts[m + 1]; 
 			
             for (index = kernel -> kernel_starts[m]; index < end; index++) {
-              #pragma omp critical
-               outputSaver += output[m][h][w];
+              printf("%f \n %d \n\n" (imageRef[kernel -> channel_numbers[index]]), (kernel -> values[index]))
+               outputSaver += (imageRef[kernel -> channel_numbers[index]]) * (kernel -> values[index]);
             }
             
             output[m][h][w] =outputSaver;
