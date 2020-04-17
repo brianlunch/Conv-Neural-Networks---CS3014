@@ -436,7 +436,7 @@ void team_conv_sparse(float ** * image, struct sparse_matrix ** * kernels,
         
          imageRef = image[w + x][h + y];
          kernel = kernels[x][y];
-         #pragma omp for critical 
+         #pragma omp critical 
          for (m = 0; m < nkernels; m++) {
             
             //instead of constantly accessing output [m][h][w] save it to a variable and add at the end
