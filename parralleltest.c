@@ -423,7 +423,7 @@ void team_conv_sparse(float ** * image, struct sparse_matrix ** * kernels,
    int imgSize = height * width;
    int kernelSize = kernel_order * kernel_order;
 
-   #pragma omp parallel private(h, w, x, y, c, m, kernelSize, imgSize, kernel_order, nkernels, end, value, outputSaver, imageRef, kernel, image, kernels, output) collapse(1) 
+   #pragma omp parallel private(h, w, x, y, c, m, kernelSize, imgSize, kernel_order, nkernels, end, value, outputSaver, imageRef, kernel, image, kernels, output) 
    {
    #pragma omp for collapse(1)
    for (wh = 0; wh < imgSize; ++wh) {  
