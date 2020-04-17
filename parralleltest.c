@@ -423,7 +423,7 @@ void team_conv_sparse(float ** * image, struct sparse_matrix ** * kernels,
    int imgSize = height * width;
    int kernelSize = kernel_order * kernel_order;
 
-   #pragma omp parallel private(h, w, x, y, c, m, kernelSize, imgSize, kernel_order, nkernels, end, value, outputSaver, imageRef, kernel, image, kernels, output) 
+   #pragma omp parallel private(h, w, x, y, c, m, kernelSize, imgSize, kernel_order, nkernels, end, value, outputSaver, imageRef, kernel) shared(image, kernels, output) 
    {
    #pragma omp for collapse(1)
    for (wh = 0; wh < imgSize; ++wh) {  
@@ -439,7 +439,7 @@ void team_conv_sparse(float ** * image, struct sparse_matrix ** * kernels,
         
          imageRef = image[w + x][h + y];
          kernel = kernels[x][y];
-         #pragma omp critical 
+
          for (m = 0; m < nkernels; m++) {
             
             //instead of constantly accessing output [m][h][w] save it to a variable and add at the end
